@@ -21,7 +21,6 @@ exports.register = async (req, res) => {
 
 // Forgot Password
 exports.forgotPassword = async (req, res) => {
-exports.forgotPassword = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     if (!user)
