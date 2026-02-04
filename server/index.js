@@ -12,7 +12,10 @@ mongoose.connect(process.env.DB_URI)
 
 // middlewares
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:5173", "https://fascinating-gecko-e8c9b7.netlify.app"],
+  credentials: true
+}));
 
 // routes
 app.use("/api/auth", authRoutes);
