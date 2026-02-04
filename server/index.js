@@ -17,5 +17,9 @@ app.use(cors());
 // routes
 app.use("/api/auth", authRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Backend is running successfully");
+});
+
 const port = process.env.PORT || 10000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
