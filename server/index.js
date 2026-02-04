@@ -12,16 +12,22 @@ mongoose.connect(process.env.DB_URI)
 
 // middlewares
 app.use(express.json());
-const allowedOrigins = (process.env.FRONTEND_URLS || "http://localhost:5173,https://fascinating-gecko-e8c9b7.netlify.app,https://stalwart-meerkat-074617.netlify.app,https://cozy-sable-54742c.netlify.app").split(",");
+const allowedOrigins = (process.env.FRONTEND_URLS || "http://localhost:5173,https://fascinating-gecko-e8c9b7.netlify.app,https://stalwart-meerkat-074617.netlify.app,https://cozy-sable-54742c.netlify.app")
+  .split(",")
+  .map(origin => origin.trim());
+
 app.use(cors({
-  origin: (origin, callback) => {
+  origin: function (origin, callback) {
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.log("CORS blocked for origin:", origin);
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 // routes
