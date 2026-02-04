@@ -4,6 +4,21 @@ const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const bcrypt = require("bcrypt");
 
+// Register User
+exports.register = async (req, res) => {
+  try {
+    let user = await User.findOne({ email: req.body.email });
+    if (user)
+      return res.status(409).send({ message: "User with given email already exists!" });
+
+    user = await new User({ ...req.body }).save();
+    res.status(201).send({ message: "User created successfully" });
+  } catch (error) {
+    res.status(500).send({ message: "Internal Server Error" });
+    console.log(error);
+  }
+};
+
 // Forgot Password
 exports.forgotPassword = async (req, res) => {
   try {

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const ForgetPassword = () => {
   const [email, setEmail] = useState('');
@@ -48,6 +49,9 @@ const ForgetPassword = () => {
                 {error && <div className="alert alert-danger">{error}</div>}
                 {msg && <div className="alert alert-success">{msg}</div>}
                 <button type="submit" className="btn btn-primary w-100">Submit</button>
+                <div className="mt-3 text-center">
+                    <Link to="/register">Create an account</Link>
+                </div>
               </form>
             </div>
           </div>
