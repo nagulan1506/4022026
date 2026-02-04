@@ -12,7 +12,7 @@ mongoose.connect(process.env.DB_URI)
 
 // middlewares
 app.use(express.json());
-const allowedOrigins = (process.env.FRONTEND_URLS || "http://localhost:5173,https://fascinating-gecko-e8c9b7.netlify.app,https://stalwart-meerkat-074617.netlify.app").split(",");
+const allowedOrigins = (process.env.FRONTEND_URLS || "http://localhost:5173,https://fascinating-gecko-e8c9b7.netlify.app,https://stalwart-meerkat-074617.netlify.app,https://cozy-sable-54742c.netlify.app").split(",");
 app.use(cors({
   origin: (origin, callback) => {
     if (!origin || allowedOrigins.includes(origin)) {
