@@ -12,8 +12,15 @@ mongoose.connect(process.env.DB_URI)
 
 // middlewares
 app.use(express.json());
+const allowedOrigins = (process.env.FRONTEND_URLS || "http://localhost:5173,https://fascinating-gecko-e8c9b7.netlify.app,https://stalwart-meerkat-074617.netlify.app").split(",");
 app.use(cors({
-  origin: ["http://localhost:5173", "https://fascinating-gecko-e8c9b7.netlify.app"],
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true
 }));
 
