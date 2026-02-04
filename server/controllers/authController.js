@@ -14,12 +14,13 @@ exports.register = async (req, res) => {
     user = await new User({ ...req.body }).save();
     res.status(201).send({ message: "User created successfully" });
   } catch (error) {
-    res.status(500).send({ message: "Internal Server Error" });
     console.log(error);
+    res.status(500).send({ message: "Internal Server Error: " + error.message });
   }
 };
 
 // Forgot Password
+exports.forgotPassword = async (req, res) => {
 exports.forgotPassword = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
